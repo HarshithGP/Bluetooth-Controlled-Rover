@@ -33,103 +33,100 @@ String input2; //variable for string input
 
 
 void setup() {
+ 
   lcd.begin(16,2);     // 16 colums 2 rows
   pinMode(13,OUTPUT);
   pinMode(9,OUTPUT);
   pinMode(8,OUTPUT);
   pinMode(10,OUTPUT);
   Serial.begin(9600);    //baud rate for all serial communications
+ 
  }
 
 void loop() {
   char strng; //textbox content
   lcd.clear();
-if(Serial.available()>0)
- {
-  input = Serial.read();
- }
+  
+     if(Serial.available()>0){
+        input = Serial.read();
+     }
  
 // forward
-if(input == '1')
-  {
-  digitalWrite(13,HIGH);
-   digitalWrite(9,LOW);
-   digitalWrite(8,LOW);
-   digitalWrite(10,HIGH);
-   }
+     if(input == '1'){
+       digitalWrite(13,HIGH);
+        digitalWrite(9,LOW);
+        digitalWrite(8,LOW);
+        digitalWrite(10,HIGH);
+     }
 
  //back  
- else if(input == '2')
-  {
-   digitalWrite(13,LOW);
-   digitalWrite(9,HIGH);
-   digitalWrite(8,HIGH);
-   digitalWrite(10,LOW);
-}
+      else if(input == '2'){
+        digitalWrite(13,LOW);
+        digitalWrite(9,HIGH);
+        digitalWrite(8,HIGH);
+        digitalWrite(10,LOW);
+     }
 
 //right
-else if(input == '3')
-  {
-   digitalWrite(13,HIGH);
-   digitalWrite(9,LOW);
-   digitalWrite(8,HIGH);
-   digitalWrite(10,LOW);
-   }
+     else if(input == '3'){
+        digitalWrite(13,HIGH);
+        digitalWrite(9,LOW);
+        digitalWrite(8,HIGH);
+        digitalWrite(10,LOW);
+     }
 
   //left 
- else if(input == '4')
-  {
-digitalWrite(13,LOW);
-   digitalWrite(9,HIGH);
-   digitalWrite(8,LOW);
-   digitalWrite(10,HIGH);
-   }
+     else if(input == '4'){
+       digitalWrite(13,LOW);
+       digitalWrite(9,HIGH);
+       digitalWrite(8,LOW);
+       digitalWrite(10,HIGH);
+     }
 
    //default state
-    else if(input == '0')
-  {
-digitalWrite(13,LOW);
-   digitalWrite(9,LOW);
-   digitalWrite(8,LOW);
-   digitalWrite(10,LOW);
-   lcd.clear();
-}
+    else if(input == '0'){
+        digitalWrite(13,LOW);
+        digitalWrite(9,LOW);
+        digitalWrite(8,LOW);
+        digitalWrite(10,LOW);
+        lcd.clear();
+    }
 
 //string to be displayed on lcd
-else if(input == '5')
-  
-  {Serial.flush();
-    while(!Serial.available()) ; 
-    input2 = Serial.readString();
-    strng = input2.length();
-    lcd.clear();
-   delay(10); // delay of 10 ms
-   lcd.setCursor(0, 0); // row 0 col 0
-   lcd.print(input2.c_str()); // character values are fetched by c_str() and converts string 
-   delay(1000);
-   lcd.clear();
-    input = '0';
-    }
+      else if(input == '5'){
+       
+          Serial.flush();
+          while(!Serial.available()) ; 
+          input2 = Serial.readString();
+          strng = input2.length();
+          lcd.clear();
+          delay(10); // delay of 10 ms
+          lcd.setCursor(0, 0); // row 0 col 0
+          lcd.print(input2.c_str()); // character values are fetched by c_str() and converts string 
+          delay(1000);
+          lcd.clear();
+          input = '0';
+      }
 
 
  //scrolling of text on lcd
- else if(input == '6')
+ else if(input == '6'){ 
   
-  { lcd.clear();
-   delay(10);
-   lcd.setCursor(16, 0); // col 16
-   lcd.print(input2.c_str());
-   for (int i = 0;i<16+strng;i++) {
-    lcd.scrollDisplayLeft(); 
-    delay(200);
-  }
+      lcd.clear();
+      delay(10);
+      lcd.setCursor(16, 0); // col 16
+      lcd.print(input2.c_str());
+      for (int i = 0;i<16+strng;i++) {
+      lcd.scrollDisplayLeft(); 
+      delay(200);
+    }
+    
     lcd.clear();
     input = '0';
-    }
+  }
 
     //temp sensor
-else if(input = '7')
-{
+  else if(input = '7'){
     DHT.read11(dht_dpin);
 
     Serial.print("Hum= ");
@@ -138,7 +135,6 @@ else if(input = '7')
     Serial.print("Temp= ");
     Serial.print(DHT.temperature); 
     Serial.println(" deg C  ");
-  delay(800);
-}
+    delay(800);
   }
-
+}
